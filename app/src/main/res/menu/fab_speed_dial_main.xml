@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/round_favorite_24"
+        android:title="Favorite" />
+    <item
+        android:id="@+id/action_recent"
+        android:icon="@drawable/round_timer_24"
+        android:title="Recent" />
+</menu>
