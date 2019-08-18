@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.makeramen.roundedimageview.RoundedImageView;
+import com.bumptech.glide.Glide;
 import com.tsnanh.education.learnenglishvocabularywithpictures.R;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.Vocabulary;
 
@@ -50,13 +52,19 @@ public class VocabularyCategoryAdapter extends BaseAdapter {
 
             ViewHolder holder = new ViewHolder();
 
+            holder.imageView = v.findViewById(R.id.item_img_vocabulary_cat);
+            holder.textView = v.findViewById(R.id.item_lbl_vocabulary_cat);
 
+            v.setTag(holder);
         }
-    }
 
-    class ViewHolder {
-        RoundedImageView roundedImageView;
-        TextView textView;
-        ImageView btnFavorite;
+        Vocabulary vocabulary = arrayList.get(i);
+
+        ViewHolder holder = (ViewHolder) v.getTag();
+
+        holder.textView.setText(vocabulary.getEn_us());
+        Glide.with(context).load(Config.SERVER_IMAGE_FOLDER + vocabulary.getImage()).centerCrop().placeholder(R.drawable.loading_spinner).into(holder.imageView);
+        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 560));
+        return v;
     }
 }

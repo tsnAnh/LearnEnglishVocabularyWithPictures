@@ -44,16 +44,6 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//        view = inflater.inflate(R.layout.item_list_main, viewGroup, false);
-//
-//        ImageView imageView = view.findViewById(R.id.item_img_category_image);
-//        TextView textView = view.findViewById(R.id.item_lbl_category_title);
-//
-//        Categories categories = arrayList.get(i);
-//
-//        Glide.with(context).load(Utilities.getBitmapFromURL(Config.SERVER_IMAGE_CAT_FOLDER+categories.getIntroImage())).placeholder(R.drawable.loading_spinner).centerCrop().into(imageView);
-//        textView.setText(categories.getTitle());
         View v = view;
 
         if (v == null) {
@@ -73,8 +63,11 @@ public class GridAdapter extends BaseAdapter {
 
         holder.textView.setText(categories.getTitle());
         Glide.with(context).load(Config.SERVER_IMAGE_CAT_FOLDER + categories.getIntroImage()).centerCrop().placeholder(R.drawable.loading_spinner).into(holder.imageView);
+        if (holder.imageView.getDrawable() == null) {
+                         
+        }
         Log.e("URL", Config.SERVER_IMAGE_CAT_FOLDER + categories.getIntroImage());
-        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 550));
+        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 560));
         return v;
     }
 }

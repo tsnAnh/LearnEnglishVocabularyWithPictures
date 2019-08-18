@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -73,16 +78,19 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 .create());
 
         listView.setOnItemClickListener(this);
+        gridView.setOnItemClickListener(this);
         displayList(listOrGrid);
     }
 
+
+
     @Override
     public void loadViewSettings() {
-        sharedPreferences = getSharedPreferences("LearnEnglishVocabularyWithPictures",Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Config.SHARE_PREFERENCES_KEY, Context.MODE_PRIVATE);
         if (sharedPreferences == null) {
             listOrGrid = true;
         } else {
-            listOrGrid = sharedPreferences.getBoolean("LIST_TYPE", true);
+            listOrGrid = sharedPreferences.getBoolean(Config.SHARE_PREFERENCES_LIST_TYPE, true);
         }
     }
 
@@ -97,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.toolbar_main, menu);
-        MenuItem itemViewList = menu.findItem(R.id.menu_item_view_list);
+        MenuItem itemViewList = menu.findItem(R.id.menu_item_view_list_main);
         if (listOrGrid) {
             itemViewList.setIcon(R.drawable.round_view_list_24);
         } else {
@@ -107,7 +115,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         MenuItem itemSearch = menu.findItem(R.id.menu_item_search_main);
         SearchView searchView = (SearchView) itemSearch.getActionView();
-        searchView.setElevation(0);
+
+        MenuItem itemShare = menu.findItem(R.id.menu_item_share_main);
+        itemShare.setOnMenuItemClickListener(this);
+
+        MenuItem itemPro = menu.findItem(R.id.menu_item_pro_main);
+        itemPro.setOnMenuItemClickListener(this);
         return true;
     }
 
@@ -116,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         int id = menuItem.getItemId();
 
         switch (id) {
-            case R.id.menu_item_view_list:
+            case R.id.menu_item_view_list_main:
                 displayList(!listOrGrid);
 
                 if (!listOrGrid) {
@@ -150,8 +163,8 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Categories categories = arr.get(i);
 
-        Bundle bundle = new Bundle();
-        bundle.putLong(Config.CATEGORY_ID_KEY, categories.getId());
-        startActivity(new Intent(this, VocabularyCategoryActivity.class), bundle);
+        Intent intent = new Intent(this, VocabularyCategoryActivity.class);
+        intent.putExtra(Config.CATEGORY_KEY, categories);
+        startActivity(intent);
     }
 }

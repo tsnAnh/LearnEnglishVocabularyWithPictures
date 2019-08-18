@@ -1,10 +1,21 @@
 package com.tsnanh.education.learnenglishvocabularywithpictures.model;
 
-import org.greenrobot.greendao.annotation.*;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-@Entity
-public class Categories {
-    @Id @NotNull @Property(nameInDb = "id")
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Property;
+
+
+@Entity(nameInDb = "categories")
+public class Categories implements Parcelable {
+    @Id
+    @NotNull
+    @Property(nameInDb = "id")
     private long id;
     @Index
     private String title;
@@ -35,6 +46,29 @@ public class Categories {
     @Generated(hash = 267348489)
     public Categories() {
     }
+
+    protected Categories(Parcel in) {
+        id = in.readLong();
+        title = in.readString();
+        parentId = in.readInt();
+        status = in.readInt();
+        description = in.readString();
+        lft = in.readInt();
+        rgt = in.readInt();
+        introImage = in.readString();
+    }
+
+    public static final Creator<Categories> CREATOR = new Creator<Categories>() {
+        @Override
+        public Categories createFromParcel(Parcel in) {
+            return new Categories(in);
+        }
+
+        @Override
+        public Categories[] newArray(int size) {
+            return new Categories[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -98,5 +132,22 @@ public class Categories {
 
     public void setIntroImage(String introImage) {
         this.introImage = introImage;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(title);
+        parcel.writeInt(parentId);
+        parcel.writeInt(status);
+        parcel.writeString(description);
+        parcel.writeInt(lft);
+        parcel.writeInt(rgt);
+        parcel.writeString(introImage);
     }
 }

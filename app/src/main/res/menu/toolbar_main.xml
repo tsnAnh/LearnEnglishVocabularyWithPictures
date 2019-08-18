@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_item_view_list"
+        android:id="@+id/menu_item_view_list_main"
         android:icon="@drawable/round_view_list_24"
         android:title="List"
         app:showAsAction="always" />
@@ -13,4 +13,12 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_item_share_main"
+        android:title="Share This App"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_item_pro_main"
+        android:title="Pro Version"
+        app:showAsAction="never" />
 </menu>

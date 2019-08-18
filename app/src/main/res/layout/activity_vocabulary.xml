@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.VocabularyActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_vocabulary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_vocabulary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:elevation="4dp"
+        app:tabIndicatorColor="@color/colorTrueBlack"
+        app:tabMode="scrollable"
+        app:tabTextColor="@color/colorTrueBlack" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_vocabulary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/tab_layout_vocabulary"
+        android:layout_below="@+id/toolbar_vocabulary"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp" />
+
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/fab_menu_vocabulary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tab_layout_vocabulary"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        app:sdMainFabClosedBackgroundColor="@android:color/white"
+        app:sdMainFabOpenedBackgroundColor="@android:color/white"
+        app:sdOverlayLayout="@id/speed_dial_overlay_vocabulary"
+        app:sdMainFabClosedSrc="@drawable/round_menu_24"
+        app:sdMainFabOpenedSrc="@drawable/round_clear_24" />
+
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/speed_dial_overlay_vocabulary"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#9A000000" />
+</RelativeLayout>
