@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -26,12 +25,16 @@ import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Config
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.GridAdapter;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.ICategory;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.ListAdapter;
+import com.tsnanh.education.learnenglishvocabularywithpictures.controller.SearchAdapter;
+import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Utilities;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.Categories;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.DaoSession;
+import com.tsnanh.education.learnenglishvocabularywithpictures.model.Vocabulary;
+import com.tsnanh.education.learnenglishvocabularywithpictures.model.VocabularyDao;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, ICategory, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, ICategory, AdapterView.OnItemClickListener, SpeedDialView.OnActionSelectedListener {
 
     private DaoSession daoSession = App.getDaoSession();
     private GridView gridView;
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 .setFabBackgroundColor(Color.WHITE)
                 .setLabel("Recent")
                 .create());
+        speedDialView.setOnActionSelectedListener(this);
 
         listView.setOnItemClickListener(this);
         gridView.setOnItemClickListener(this);
@@ -114,13 +118,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         itemViewList.setOnMenuItemClickListener(this);
 
         MenuItem itemSearch = menu.findItem(R.id.menu_item_search_main);
-        SearchView searchView = (SearchView) itemSearch.getActionView();
+        itemSearch.setOnMenuItemClickListener(this);
 
         MenuItem itemShare = menu.findItem(R.id.menu_item_share_main);
         itemShare.setOnMenuItemClickListener(this);
 
-        MenuItem itemPro = menu.findItem(R.id.menu_item_pro_main);
-        itemPro.setOnMenuItemClickListener(this);
         return true;
     }
 
@@ -139,6 +141,12 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                     listOrGrid = false;
                     menuItem.setIcon(R.drawable.round_view_module_24);
                 }
+                break;
+            case R.id.menu_item_share_main:
+                Utilities.shareApplication(MainActivity.this);
+                break;
+            case R.id.menu_item_search_main:
+                startActivity(new Intent(MainActivity.this, VocabularySearchActivity.class));
                 break;
         }
         return false;
@@ -166,5 +174,20 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         Intent intent = new Intent(this, VocabularyCategoryActivity.class);
         intent.putExtra(Config.CATEGORY_KEY, categories);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onActionSelected(SpeedDialActionItem actionItem) {
+        int id = actionItem.getId();
+
+        switch (id) {
+            case R.id.action_favorite:
+                startActivity(new Intent(this, FavoriteVocabularyActivity.class));
+                speedDialView.close(true);
+                break;
+            case R.id.action_recent:
+                break;
+        }
+        return true;
     }
 }

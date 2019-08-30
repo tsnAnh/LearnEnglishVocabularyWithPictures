@@ -11,14 +11,13 @@
         android:id="@+id/menu_item_search_main"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
-        app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_item_share_main"
         android:title="Share This App"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_item_pro_main"
-        android:title="Pro Version"
-        app:showAsAction="never" />
+<!--    <item-->
+<!--        android:id="@+id/menu_item_pro_main"-->
+<!--        android:title="Pro Version"-->
+<!--        app:showAsAction="never" />-->
 </menu>

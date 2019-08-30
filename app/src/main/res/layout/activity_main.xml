@@ -31,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_main"
-        android:layout_marginTop="0dp"
         android:background="#FFFFFF" />
 
     <com.leinardi.android.speeddial.SpeedDialView
@@ -46,17 +45,17 @@
         app:sdOverlayLayout="@id/speed_dial_overlay_main"
         app:sdMainFabClosedSrc="@drawable/round_menu_24"
         app:sdMainFabOpenedSrc="@drawable/round_clear_24" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="#fff"
+            android:elevation="6dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ActionBarTheme" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:background="#fff"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ActionBarTheme" />
 
     <com.leinardi.android.speeddial.SpeedDialOverlayLayout
         android:id="@+id/speed_dial_overlay_main"

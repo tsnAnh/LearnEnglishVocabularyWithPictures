@@ -15,7 +15,6 @@
         <item name="colorControlNormal">@color/colorTrueBlack</item>
         <!-- Change item background hihi dmm -->
         <item name="android:itemBackground">#fff</item>
-        <item name="android:elevation">4dp</item>
 
         <!-- Chang color of item text hehe dmm -->
         <item name="android:textColor">@color/colorTrueBlack</item>

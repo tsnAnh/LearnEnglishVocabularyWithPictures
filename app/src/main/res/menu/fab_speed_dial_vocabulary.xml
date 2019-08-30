@@ -6,15 +6,12 @@
         android:id="@+id/action_settings"
         android:title="Settings" />
     <item
-        android:id="@+id/action_share_via_facebook"
-        android:title="Share Via Facebook" />
-    <item
-        android:id="@+id/action_vocabulary_favorite"
-        android:title="Favorite" />
-    <item
         android:id="@+id/action_listen"
         android:title="Listen" />
     <item
         android:id="@+id/action_play"
         android:title="Play" />
+    <item
+        android:id="@+id/action_stop"
+        android:title="Stop" />
 </menu>

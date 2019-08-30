@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tsnanh.education.learnenglishvocabularywithpictures">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".controller.App"
         android:allowBackup="true"
@@ -14,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.VocabularyActivity"></activity>
+        <activity android:name=".view.FavoriteVocabularyActivity"></activity>
+        <activity android:name=".view.VocabularySearchActivity" />
+        <activity android:name=".view.VocabularySettingsActivity" />
+        <activity android:name=".view.VocabularyActivity" />
         <activity android:name=".view.VocabularyCategoryActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
@@ -23,6 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider{com.tsnanh.education.learnenglishvocabularywithpictures}"
+            android:exported="true" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
