@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.FavoriteVocabularyActivity"></activity>
+        <activity android:name=".view.TestVocabularyActivity"></activity>
+        <activity android:name=".view.MatchingGameActivity" />
+        <activity android:name=".view.LearnActivity" />
+        <activity android:name=".view.VocabularyAll" />
+        <activity android:name=".view.FavoriteVocabularyActivity" />
         <activity android:name=".view.VocabularySearchActivity" />
         <activity android:name=".view.VocabularySettingsActivity" />
         <activity android:name=".view.VocabularyActivity" />
@@ -24,11 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider{com.tsnanh.education.learnenglishvocabularywithpictures}"
-            android:exported="true" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

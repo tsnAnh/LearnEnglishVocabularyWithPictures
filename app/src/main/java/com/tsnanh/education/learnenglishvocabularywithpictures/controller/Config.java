@@ -17,4 +17,6 @@ public final class Config {
     public static final String VOC_ID = "VOC_ID";
     public static final int VOCABULARY_SETTINGS_REQUEST_CODE = 1;
     public static final int SEARCH_RESULT = 10;
+    public static final int VOCABULARY_FAVORITE_REQUEST_CODE = 2;
+    public static final String VOCABULARY_ALL = "VOCABULARY_ALL";
 }

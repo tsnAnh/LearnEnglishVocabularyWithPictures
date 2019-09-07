@@ -1,6 +1,8 @@
 package com.tsnanh.education.learnenglishvocabularywithpictures.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,9 +12,12 @@ import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -91,6 +96,17 @@ public class VocabularyFragment extends Fragment {
         TextView lblExamples = view.findViewById(R.id.fragment_lbl_examples_vocabulary);
         final EditText edtNote = view.findViewById(R.id.fragment_edt_note_vocabulary);
         ImageView imageView = view.findViewById(R.id.fragment_img_vocabulary);
+        final ImageView btnEdit = view.findViewById(R.id.btn_edit_note);
+        Button btnLearn = view.findViewById(R.id.btn_learn);
+
+        btnLearn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(VocabularyFragment.this.getContext(), LearnActivity.class);
+                intent.putExtra("vocabulary", vocabulary);
+                startActivity(intent);
+            }
+        });
 
         lblVocabulary.setText(vocabulary.getEn_us().trim());
         if (!vocabulary.getEn_us_pr().isEmpty()) {
@@ -116,13 +132,33 @@ public class VocabularyFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String text = edtNote.getText().toString().trim();
+                String text = editable.toString().trim();
                 vocabulary.setNote(text);
-                App.getDaoSession().getVocabularyDao().update(vocabulary);
+                App.getDaoSession().getDatabase().execSQL("update vocabularies set note = '"+ text +"' where id = "+ vocabulary.getId() +"");
+            }
+        });
+
+        edtNote.setEnabled(false);
+        edtNote.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.KEYCODE_BACK) {
+                    edtNote.clearFocus();
+                }
+                return false;
+            }
+        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtNote.setEnabled(true);
+                edtNote.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(edtNote, InputMethodManager.SHOW_IMPLICIT);
             }
         });
         edtNote.setText(vocabulary.getNote());
-        Glide.with(this).load(Config.SERVER_IMAGE_FOLDER + vocabulary.getImage()).fitCenter().into(imageView);
+        Glide.with(this).load(Config.SERVER_IMAGE_FOLDER + vocabulary.getImage()).placeholder(R.drawable.progress).into(imageView);
 
         return view;
     }

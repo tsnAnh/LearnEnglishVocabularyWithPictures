@@ -37,7 +37,7 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int duration;
-    boolean isRepeat, isChanged = false;
+    boolean isRepeat, isChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +77,22 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
 
         assert this.getSupportActionBar() != null;
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        isChanged = false;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        exitSettings();
+        return true;
     }
 
     @Override
     public void onBackPressed() {
+        exitSettings();
+    }
+
+    private void exitSettings() {
         if (isChanged) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Do you want to save your changes?")
@@ -98,10 +110,7 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
                             editor.putInt(Config.SHARE_PREFERENCES_DURATION, duration);
                             editor.apply();
                             Toast.makeText(VocabularySettingsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent();
-                            intent.putExtra("duration", duration);
-                            intent.putExtra("repeat", isRepeat);
-                            setResult(Activity.RESULT_OK, intent);
+                            setResult(Activity.RESULT_OK);
                             finish();
                         }
                     })
@@ -114,6 +123,9 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
                     });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        } else {
+            setResult(RESULT_CANCELED);
+            finish();
         }
     }
 
@@ -125,10 +137,8 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
             editor.putBoolean(Config.SHARE_PREFERENCES_REPEAT, isRepeat);
             editor.putInt(Config.SHARE_PREFERENCES_DURATION, duration);
             editor.apply();
-            Intent intent = new Intent();
-            intent.putExtra("duration", duration);
-            intent.putExtra("repeat", isRepeat);
-            setResult(RESULT_OK, intent);
+            setResult(RESULT_OK);
+            Toast.makeText(VocabularySettingsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

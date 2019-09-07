@@ -1,12 +1,5 @@
 package com.tsnanh.education.learnenglishvocabularywithpictures.view;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,15 +10,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -39,7 +35,6 @@ import com.tsnanh.education.learnenglishvocabularywithpictures.model.DaoSession;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.Vocabulary;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -77,7 +72,7 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vocabulary);
 
-        arrayList = getVocabularyModel();
+        arrayList = getVocabularyModelArrayList();
         setVocabularyId();
 
         vocabulary = arrayList.get(vocabularyId);
@@ -180,20 +175,11 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (data != null) {
-            if (resultCode == Activity.RESULT_OK) {
-                boolean b = data.getBooleanExtra("reload_voc_settings", false);
-                if (b) {
-                    refreshSettings(data.getBooleanExtra("repeat", false), data.getIntExtra("duration", 5));
-                }
-            }
+        if (requestCode == Config.VOCABULARY_SETTINGS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            duration = sharedPreferences.getInt(Config.SHARE_PREFERENCES_DURATION, 5);
+            isRepeat = sharedPreferences.getBoolean(Config.SHARE_PREFERENCES_REPEAT, false);
         }
-    }
 
-    private void refreshSettings(boolean b, int duration) {
-        isRepeat = b;
-        this.duration = duration;
     }
 
     public void onRadioClick() {
@@ -333,7 +319,7 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         return true;
     }
 
-    private ArrayList<Vocabulary> getVocabularyModel() {
+    private ArrayList<Vocabulary> getVocabularyModelArrayList() {
         return getIntent().getExtras().getParcelableArrayList(Config.VOCABULARY_CAT_KEY);
     }
     private void setVocabularyId() {
@@ -358,6 +344,7 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
                         if (isRepeat) {
                             currentPage = 0;
                         } else {
+                            stopPagerAutoSwipe();
                             Intent intent = new Intent();
                             intent.putExtra(Config.VOC_ID, arrayList.size());
                             VocabularyActivity.this.setResult(Config.VOCABULARY_REQUEST_CODE, intent);
@@ -400,5 +387,13 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         intent.putParcelableArrayListExtra(Config.VOCABULARY_CAT_KEY, arrayList);
         VocabularyActivity.this.setResult(Config.VOCABULARY_REQUEST_CODE, intent);
         VocabularyActivity.this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+        if (swipeTimer != null) {
+            stopPagerAutoSwipe();
+        }
+        super.onPause();
     }
 }

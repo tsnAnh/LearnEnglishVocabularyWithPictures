@@ -93,7 +93,7 @@ public class FavoriteVocabularyActivity extends AppCompatActivity implements Ada
         Intent intent = new Intent(this, VocabularyActivity.class);
         intent.putExtra(Config.VOCABULARY_CAT_KEY, arrFavorite);
         intent.putExtra(Config.VOCABULARY_ID_KEY, i);
-        startActivityForResult(intent, Config.VOCABULARY_REQUEST_CODE);
+        startActivityForResult(intent, Config.VOCABULARY_FAVORITE_REQUEST_CODE);
     }
 
     @Override
@@ -101,11 +101,18 @@ public class FavoriteVocabularyActivity extends AppCompatActivity implements Ada
         super.onActivityResult(requestCode, resultCode, data);
 
         if (data != null) {
-            if (requestCode == Config.VOCABULARY_REQUEST_CODE) {
+            if (requestCode == Config.VOCABULARY_FAVORITE_REQUEST_CODE) {
                 int position = data.getIntExtra(Config.VOC_ID, arrFavorite.size());
                 gridView.setSelection(position);
                 arrFavorite.clear();
                 arrFavorite.addAll(data.<Vocabulary>getParcelableArrayListExtra(Config.VOCABULARY_CAT_KEY));
+                for (Vocabulary vocabulary:
+                        arrFavorite) {
+                    if (vocabulary.getLiked() == 0) {
+                        arrFavorite.remove(vocabulary);
+                    }
+                }
+                favoriteAdapter.notifyDataSetChanged();
             }
         }
     }

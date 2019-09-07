@@ -31,7 +31,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
+        android:clipToPadding="false"
         android:elevation="4dp"
+        android:visibility="visible"
         app:tabIndicatorColor="@color/colorTrueBlack"
         app:tabMode="scrollable"
         app:tabTextColor="@color/colorTrueBlack" />
@@ -39,7 +41,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_vocabulary"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/tab_layout_vocabulary"
         android:layout_below="@+id/toolbar_vocabulary"
         android:layout_alignParentStart="true"
@@ -47,16 +49,18 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="0dp" >
+
+    </androidx.viewpager.widget.ViewPager>
 
     <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/fab_menu_vocabulary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tab_layout_vocabulary"
-        android:layout_alignParentEnd="true"
+        android:layout_alignEnd="@+id/view_pager_vocabulary"
+        android:layout_alignBottom="@+id/view_pager_vocabulary"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="0dp"
         app:sdMainFabClosedBackgroundColor="@android:color/white"
         app:sdMainFabClosedSrc="@drawable/round_menu_24"
         app:sdMainFabOpenedBackgroundColor="@android:color/white"

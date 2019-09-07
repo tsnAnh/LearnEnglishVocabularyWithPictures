@@ -110,9 +110,9 @@ public class VocabularySearchActivity extends AppCompatActivity implements Adapt
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent intent = new Intent(this, VocabularyActivity.class);
-        intent.putExtra(Config.VOCABULARY_CAT_KEY, arr);
-        intent.putExtra(Config.VOCABULARY_ID_KEY, i);
-        startActivityForResult(intent, Config.VOCABULARY_REQUEST_CODE);
+        Intent intent = new Intent(this, VocabularyAll.class);
+        intent.putExtra(Config.VOCABULARY_ALL, arr.get(i));
+        intent.putExtra("isSearch", true);
+        startActivity(intent);
     }
 }

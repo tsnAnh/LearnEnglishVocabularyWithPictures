@@ -25,12 +25,9 @@ import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Config
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.GridAdapter;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.ICategory;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.ListAdapter;
-import com.tsnanh.education.learnenglishvocabularywithpictures.controller.SearchAdapter;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Utilities;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.Categories;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.DaoSession;
-import com.tsnanh.education.learnenglishvocabularywithpictures.model.Vocabulary;
-import com.tsnanh.education.learnenglishvocabularywithpictures.model.VocabularyDao;
 
 import java.util.ArrayList;
 
@@ -70,15 +67,16 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         speedDialView.setMainFabOpenedBackgroundColor(Color.WHITE);
         speedDialView.setMainFabClosedBackgroundColor(Color.WHITE);
         speedDialView
+                .addActionItem(new SpeedDialActionItem.Builder(R.id.action_all_voc, R.drawable.round_format_list_bulleted_24)
+                        .setFabBackgroundColor(Color.WHITE)
+                        .setLabel("All Vocabularies")
+                        .create());
+        speedDialView
                 .addActionItem(new SpeedDialActionItem.Builder(R.id.action_favorite, R.drawable.round_favorite_24)
                 .setFabBackgroundColor(Color.WHITE)
                 .setLabel("Favorites")
                 .create());
-        speedDialView
-                .addActionItem(new SpeedDialActionItem.Builder(R.id.action_recent, R.drawable.round_timer_24)
-                .setFabBackgroundColor(Color.WHITE)
-                .setLabel("Recent")
-                .create());
+
         speedDialView.setOnActionSelectedListener(this);
 
         listView.setOnItemClickListener(this);
@@ -173,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
         Intent intent = new Intent(this, VocabularyCategoryActivity.class);
         intent.putExtra(Config.CATEGORY_KEY, categories);
+        intent.putExtra(Config.VOCABULARY_ALL, 0);
         startActivity(intent);
     }
 
@@ -185,7 +184,11 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
                 startActivity(new Intent(this, FavoriteVocabularyActivity.class));
                 speedDialView.close(true);
                 break;
-            case R.id.action_recent:
+            case R.id.action_all_voc:
+                Intent intent = new Intent(this, VocabularyCategoryActivity.class);
+                intent.putExtra(Config.VOCABULARY_ALL, 1);
+                startActivity(intent);
+                speedDialView.close(true);
                 break;
         }
         return true;

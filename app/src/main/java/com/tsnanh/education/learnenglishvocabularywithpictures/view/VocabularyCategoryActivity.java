@@ -41,6 +41,8 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
     private GridView gridView;
     private SpeedDialView speedDialView;
     static Categories categories;
+    VocabularyCategoryAdapter adapter;
+    int isAll = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +52,16 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vocabulary_category);
 
-        categories = getCategoryModelFromMainActivity();
-        Log.e("ID", String.valueOf(categories.getId()));
+        getIntent().getExtras().getInt(Config.VOCABULARY_ALL);
 
-        arr.addAll(getListVocabulary());
+        if (getCategoryModelFromMainActivity() == null) {
+            isAll = 1;
+            arr.addAll(daoSession.getVocabularyDao().loadAll());
+        } else {
+            categories = getCategoryModelFromMainActivity();
+            Log.e("ID", String.valueOf(categories.getId()));
+            arr.addAll(getListVocabulary());
+        }
 
         toolbar = this.findViewById(R.id.toolbar_vocabulary_cat);
         gridView = this.findViewById(R.id.grid_vocabulary_cat);
@@ -62,28 +70,34 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
         speedDialView.setMainFabOpenedBackgroundColor(Color.WHITE);
         speedDialView.setMainFabClosedBackgroundColor(Color.WHITE);
         speedDialView
+                .addActionItem(new SpeedDialActionItem.Builder(R.id.action_all_voc, R.drawable.round_format_list_bulleted_24)
+                        .setFabBackgroundColor(Color.WHITE)
+                        .setLabel("All Vocabularies")
+                        .create());
+        speedDialView
                 .addActionItem(new SpeedDialActionItem.Builder(R.id.action_favorite, R.drawable.round_favorite_24)
                         .setFabBackgroundColor(Color.WHITE)
                         .setLabel("Favorites")
                         .create());
-        speedDialView
-                .addActionItem(new SpeedDialActionItem.Builder(R.id.action_recent, R.drawable.round_timer_24)
-                        .setFabBackgroundColor(Color.WHITE)
-                        .setLabel("Recent")
-                        .create());
+
         speedDialView.setOnActionSelectedListener(this);
 
-        toolbar.setTitle("Vocabulary Categories");
+        if (isAll == 1) {
+            toolbar.setTitle("All Vocabularies");
+            speedDialView.setVisibility(View.GONE);
+        } else {
+            toolbar.setTitle(categories.getTitle());
+        }
         toolbar.setTitleTextColor(Color.BLACK);
         this.setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.BLACK);
-        toolbar.setTitle(categories.getTitle());
+
         assert getSupportActionBar() != null;
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gridView.setOnItemClickListener(this);
 
-        VocabularyCategoryAdapter adapter = new VocabularyCategoryAdapter(this, arr);
+        adapter = new VocabularyCategoryAdapter(this, arr);
         gridView.setAdapter(adapter);
     }
 
@@ -94,10 +108,10 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
     }
 
     private Categories getCategoryModelFromMainActivity() {
-        return getIntent().getParcelableExtra(Config.CATEGORY_KEY);
+        return getIntent().getParcelableExtra(Config.CATEGORY_KEY) == null ? null : (Categories) getIntent().getParcelableExtra(Config.CATEGORY_KEY);
     }
 
-    public static  ArrayList<Vocabulary> getListVocabulary() {
+    public ArrayList<Vocabulary> getListVocabulary() {
         QueryBuilder<Vocabulary> builder = daoSession.getVocabularyDao().queryBuilder();
         builder.join(VocabularyCategories.class, VocabularyCategoriesDao.Properties.VocabularyId)
                 .where(VocabularyCategoriesDao.Properties.CategoryId.eq(categories.getId()));
@@ -132,10 +146,18 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent intent = new Intent(this, VocabularyActivity.class);
-        intent.putExtra(Config.VOCABULARY_CAT_KEY, arr);
-        intent.putExtra(Config.VOCABULARY_ID_KEY, i);
-        startActivityForResult(intent, Config.VOCABULARY_REQUEST_CODE);
+        Intent intent;
+        if (isAll == 1) {
+            intent = new Intent(this, VocabularyAll.class);
+            intent.putExtra(Config.VOCABULARY_ALL, arr.get(i));
+            intent.putExtra("isSearch", false);
+            startActivity(intent);
+        } else if (isAll == 0){
+            intent = new Intent(this, VocabularyActivity.class);
+            intent.putExtra(Config.VOCABULARY_CAT_KEY, arr);
+            intent.putExtra(Config.VOCABULARY_ID_KEY, i);
+            startActivityForResult(intent, Config.VOCABULARY_REQUEST_CODE);
+        }
     }
 
     @Override
@@ -161,7 +183,10 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
                 startActivity(new Intent(this, FavoriteVocabularyActivity.class));
                 speedDialView.close(true);
                 break;
-            case R.id.action_recent:
+            case R.id.action_all_voc:
+                Intent intent = new Intent(this, VocabularyCategoryActivity.class);
+                startActivity(intent);
+                speedDialView.close(true);
                 break;
         }
         return true;

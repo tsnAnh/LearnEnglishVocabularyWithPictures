@@ -5,7 +5,7 @@
         android:icon="@drawable/round_favorite_24"
         android:title="Favorite" />
     <item
-        android:id="@+id/action_recent"
+        android:id="@+id/action_all_voc"
         android:icon="@drawable/round_timer_24"
         android:title="Recent" />
 </menu>
