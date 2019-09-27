@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#42A5F5"
     android:clipToPadding="false"
     tools:context=".view.LearnActivity">
 
@@ -11,10 +12,14 @@
         android:id="@+id/btn_show_mean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_learn"
+        android:paddingStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingEnd="16dp"
         android:text="Show Mean"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_group_learn2" />
+        app:layout_constraintTop_toBottomOf="@+id/button_group_learn3" />
 
     <EditText
         android:id="@+id/edt_learn"
@@ -30,6 +35,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_correct" />
 
+    <ImageView
+        android:id="@+id/btn_sound_learn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_learn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_correct"
+        app:srcCompat="@drawable/round_volume_up_24" />
+
     <LinearLayout
         android:id="@+id/button_group_learn"
         android:layout_width="wrap_content"
@@ -42,6 +60,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_learn" />
 
+    <LinearLayout
+        android:id="@+id/button_group_learn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_group_learn"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_group_learn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_group_learn2"></LinearLayout>
+
     <TextView
         android:id="@+id/lbl_mean_title_learn"
         android:layout_width="wrap_content"
@@ -49,12 +87,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Mean: "
-        android:textColor="@color/colorTrueBlack"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_group_learn2" />
+        app:layout_constraintTop_toBottomOf="@+id/button_group_learn3" />
 
     <TextView
         android:id="@+id/lbl_mean_learn"
@@ -64,13 +102,25 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
-        android:textColor="@color/colorTrueBlack"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_mean_title_learn" />
+
+    <TextView
+        android:id="@+id/lbl_correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="#47CC00"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_learn" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_learn"
@@ -95,38 +145,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_learn"
         app:riv_corner_radius="20dp" />
-
-    <TextView
-        android:id="@+id/lbl_correct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/holo_green_light"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_learn" />
-
-    <LinearLayout
-        android:id="@+id/button_group_learn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_group_learn"></LinearLayout>
-
-    <ImageView
-        android:id="@+id/btn_sound_learn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:padding="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/edt_learn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_correct"
-        app:srcCompat="@drawable/round_volume_up_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,10 +24,13 @@ android:weightSum="12">
             android:id="@+id/item_lbl_vocabulary_cat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="2"
             android:text="TextView"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </LinearLayout>

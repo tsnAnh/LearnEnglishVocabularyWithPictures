@@ -8,4 +8,10 @@
         android:id="@+id/action_all_voc"
         android:icon="@drawable/round_timer_24"
         android:title="Recent" />
+    <item
+        android:id="@+id/action_matching_game"
+        android:title="Matching Game" />
+    <item
+        android:id="@+id/action_test_vocabulary"
+        android:title="Test Your Vocabulary" />
 </menu>

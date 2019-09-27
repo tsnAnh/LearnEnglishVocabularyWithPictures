@@ -3,26 +3,32 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">#000</item>
+        <item name="colorPrimary">#1565C0</item>
+        <item name="colorPrimaryDark"></item>
+        <item name="colorAccent">#FFF</item>
+        <item name="android:textColorPrimary">#fff</item>
         <item name="android:windowActionBar">false</item>
+        <item name="android:searchIcon">@drawable/round_search_24</item>
+        <item name="colorControlNormal">#FFF</item>
         <!--<item name="android:textColorPrimary">#000</item>-->
     </style>
 
     <style name="ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlNormal">@color/colorTrueBlack</item>
+        <item name="colorControlNormal">#FFF</item>
         <!-- Change item background hihi dmm -->
-        <item name="android:itemBackground">#fff</item>
+        <item name="android:itemBackground">#1565C0</item>
 
         <!-- Chang color of item text hehe dmm -->
-        <item name="android:textColor">@color/colorTrueBlack</item>
+        <item name="android:textColor">#FFF</item>
 
-        <item name="android:textColorSecondary">@color/colorTrueBlack</item>
-        <item name="android:textColorPrimary">@color/colorTrueBlack</item>
+        <item name="android:textColorSecondary">#fff</item>
+        <item name="android:textColorPrimary">#FFF</item>
         <item name="android:textColorHint">@color/colorGray</item>
         <item name="android:homeAsUpIndicator">@drawable/round_arrow_back_24</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:background">#1565C0</item>
+    </style>
+    <style name="Background">
+        <item name="android:background">#1E88E5</item>
     </style>
 </resources>

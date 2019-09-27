@@ -61,19 +61,23 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         listView = this.findViewById(R.id.list_main);
 
         toolbar.setTitle("Vocabulary Categories");
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitleTextColor(Color.WHITE);
         this.setSupportActionBar(toolbar);
 
-        speedDialView.setMainFabOpenedBackgroundColor(Color.WHITE);
-        speedDialView.setMainFabClosedBackgroundColor(Color.WHITE);
+        speedDialView.setMainFabOpenedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
+        speedDialView.setMainFabClosedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
         speedDialView
                 .addActionItem(new SpeedDialActionItem.Builder(R.id.action_all_voc, R.drawable.round_format_list_bulleted_24)
-                        .setFabBackgroundColor(Color.WHITE)
+                        .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelColor(Color.WHITE)
                         .setLabel("All Vocabularies")
                         .create());
         speedDialView
                 .addActionItem(new SpeedDialActionItem.Builder(R.id.action_favorite, R.drawable.round_favorite_24)
-                .setFabBackgroundColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelColor(Color.WHITE)
                 .setLabel("Favorites")
                 .create());
 

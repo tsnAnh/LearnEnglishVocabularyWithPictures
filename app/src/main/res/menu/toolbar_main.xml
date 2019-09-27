@@ -9,7 +9,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_item_search_main"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/round_search_24"
         android:title="Search"
         app:showAsAction="always" />
     <item

@@ -8,6 +8,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_vocabulary"
+        style="@style/ActionBarTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -31,15 +32,17 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
+        android:background="#1976D2"
         android:clipToPadding="false"
         android:elevation="4dp"
         android:visibility="visible"
-        app:tabIndicatorColor="@color/colorTrueBlack"
+        app:tabIndicatorColor="@android:color/white"
         app:tabMode="scrollable"
-        app:tabTextColor="@color/colorTrueBlack" />
+        app:tabTextColor="@android:color/white" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_vocabulary"
+        style="@style/Background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/tab_layout_vocabulary"
@@ -49,7 +52,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" >
+        android:layout_marginBottom="0dp">
 
     </androidx.viewpager.widget.ViewPager>
 
@@ -61,9 +64,7 @@
         android:layout_alignBottom="@+id/view_pager_vocabulary"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        app:sdMainFabClosedBackgroundColor="@android:color/white"
         app:sdMainFabClosedSrc="@drawable/round_menu_24"
-        app:sdMainFabOpenedBackgroundColor="@android:color/white"
         app:sdMainFabOpenedSrc="@drawable/round_clear_24"
         app:sdOverlayLayout="@id/speed_dial_overlay_vocabulary" />
 

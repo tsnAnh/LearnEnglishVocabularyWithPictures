@@ -60,9 +60,13 @@ public class VocabularyAll extends AppCompatActivity implements VocabularyFragme
         tabLayout = this.findViewById(R.id.tab_layout_vocabulary);
         speedDialView = this.findViewById(R.id.fab_menu_vocabulary);
 
+        speedDialView.setMainFabOpenedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
+        speedDialView.setMainFabClosedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
         itemListen = new SpeedDialActionItem.Builder(R.id.action_listen, R.drawable.round_volume_up_24)
-                .setFabBackgroundColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                 .setLabelClickable(false)
+                .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                .setLabelColor(Color.WHITE)
                 .setLabel("Listen")
                 .create();
         speedDialView
@@ -76,9 +80,8 @@ public class VocabularyAll extends AppCompatActivity implements VocabularyFragme
         });
 
         toolbar.setTitle(vocabulary.getEn_us());
-        toolbar.setTitleTextColor(Color.BLACK);
         toolbar.setSubtitle(vocabulary.getEn_us_pr());
-        toolbar.setSubtitleTextColor(Color.LTGRAY);
+        toolbar.setSubtitleTextColor(Color.WHITE);
         this.setSupportActionBar(toolbar);
 
         assert this.getSupportActionBar() != null;

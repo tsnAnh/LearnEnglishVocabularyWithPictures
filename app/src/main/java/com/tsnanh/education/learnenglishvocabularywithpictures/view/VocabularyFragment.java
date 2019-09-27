@@ -3,22 +3,28 @@ package com.tsnanh.education.learnenglishvocabularywithpictures.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +33,8 @@ import com.tsnanh.education.learnenglishvocabularywithpictures.R;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.App;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Config;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.Vocabulary;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +54,11 @@ public class VocabularyFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private boolean isPLAYING = false;
+    private MediaPlayer mp;
+    int duration;
+    boolean isRepeat;
 
     private OnFragmentInteractionListener mListener;
 
@@ -98,6 +111,14 @@ public class VocabularyFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.fragment_img_vocabulary);
         final ImageView btnEdit = view.findViewById(R.id.btn_edit_note);
         Button btnLearn = view.findViewById(R.id.btn_learn);
+        ImageButton imageButton = view.findViewById(R.id.btn_sound);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioClick();
+            }
+        });
 
         btnLearn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +174,7 @@ public class VocabularyFragment extends Fragment {
             public void onClick(View view) {
                 edtNote.setEnabled(true);
                 edtNote.requestFocus();
+                edtNote.setHint("Note will be saved automatically");
                 InputMethodManager imm = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(edtNote, InputMethodManager.SHOW_IMPLICIT);
             }
@@ -162,6 +184,38 @@ public class VocabularyFragment extends Fragment {
 
         return view;
     }
+
+    public void onRadioClick() {
+        if (!isPLAYING) {
+            isPLAYING = true;
+            mp = new MediaPlayer();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        mp.setDataSource(Config.SERVER_AUDIO_FOLDER + vocabulary.getEn_us_audio());
+                        mp.prepare();
+                        handlerAudio.sendEmptyMessage(0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        } else {
+            isPLAYING = false;
+            mp.release();
+            mp = null;
+        }
+        isPLAYING = false;
+    }
+
+    private Handler handlerAudio = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+            mp.start();
+            return false;
+        }
+    });
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

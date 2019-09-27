@@ -14,7 +14,8 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_search_vocabulary"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/round_search_24"
         android:title="Search"
+        android:visible="true"
         app:showAsAction="always" />
 </menu>

@@ -67,18 +67,37 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
         gridView = this.findViewById(R.id.grid_vocabulary_cat);
         speedDialView = this.findViewById(R.id.speed_dial_vocabulary_cat);
 
-        speedDialView.setMainFabOpenedBackgroundColor(Color.WHITE);
-        speedDialView.setMainFabClosedBackgroundColor(Color.WHITE);
+        speedDialView.setMainFabOpenedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
+        speedDialView.setMainFabClosedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
         speedDialView
                 .addActionItem(new SpeedDialActionItem.Builder(R.id.action_all_voc, R.drawable.round_format_list_bulleted_24)
-                        .setFabBackgroundColor(Color.WHITE)
+                        .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                         .setLabel("All Vocabularies")
+                        .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelColor(Color.WHITE)
                         .create());
         speedDialView
                 .addActionItem(new SpeedDialActionItem.Builder(R.id.action_favorite, R.drawable.round_favorite_24)
-                        .setFabBackgroundColor(Color.WHITE)
+                        .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                         .setLabel("Favorites")
+                        .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelColor(Color.WHITE)
                         .create());
+        speedDialView
+                .addActionItem(new SpeedDialActionItem.Builder(R.id.action_test_vocabulary, R.drawable.round_subject_24)
+                .setLabelClickable(false)
+                .setLabel("Test Your Vocabulary")
+                        .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                        .setLabelColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                .create());
+        // TODO future update 1.2.0
+//        speedDialView
+//                .addActionItem(new SpeedDialActionItem.Builder(R.id.action_matching_game, R.drawable.round_games_24)
+//                        .setFabBackgroundColor(Color.WHITE)
+//                        .setLabel("Matching Game")
+//                        .setLabelClickable(false)
+//                        .create());
 
         speedDialView.setOnActionSelectedListener(this);
 
@@ -88,9 +107,7 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
         } else {
             toolbar.setTitle(categories.getTitle());
         }
-        toolbar.setTitleTextColor(Color.BLACK);
         this.setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(Color.BLACK);
 
         assert getSupportActionBar() != null;
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -188,6 +205,18 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
                 startActivity(intent);
                 speedDialView.close(true);
                 break;
+            case R.id.action_test_vocabulary:
+                Intent intent2 = new Intent(this, TestVocabularyActivity.class);
+                intent2.putExtra(Config.VOCABULARY_CAT_KEY, arr);
+                intent2.putExtra("name_cat", categories.getTitle());
+                startActivity(intent2);
+                speedDialView.close(true);
+                // TODO later bitch
+//            case R.id.action_matching_game:
+//                Intent intent1 = new Intent(this, MatchingGameActivity.class);
+//                intent1.putExtra(Config.VOCABULARY_CAT_KEY, arr);
+//                intent1.putExtra("name_cat", categories.getTitle());
+//                startActivity(intent1);
         }
         return true;
     }

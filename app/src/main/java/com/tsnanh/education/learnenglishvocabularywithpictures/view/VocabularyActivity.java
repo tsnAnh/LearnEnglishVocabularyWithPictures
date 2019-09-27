@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -83,6 +84,8 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         tabLayout = this.findViewById(R.id.tab_layout_vocabulary);
         speedDialView = this.findViewById(R.id.fab_menu_vocabulary);
 
+        speedDialView.setMainFabOpenedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
+        speedDialView.setMainFabClosedBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)));
         speedDialView.setBackgroundColor(Color.TRANSPARENT);
         createActionItem();
 
@@ -119,9 +122,8 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         });
 
         toolbar.setTitle(vocabulary.getEn_us());
-        toolbar.setTitleTextColor(Color.BLACK);
         toolbar.setSubtitle(vocabulary.getEn_us_pr());
-        toolbar.setSubtitleTextColor(Color.LTGRAY);
+        toolbar.setSubtitleTextColor(Color.WHITE);
         this.setSupportActionBar(toolbar);
 
         assert this.getSupportActionBar() != null;
@@ -217,27 +219,35 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
 
     private void createActionItem() {
         itemPlay = new SpeedDialActionItem.Builder(R.id.action_play, R.drawable.round_play_arrow_24)
-                .setFabBackgroundColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                 .setLabel("Play")
+                .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                .setLabelColor(Color.WHITE)
                 .setLabelClickable(false)
                 .create();
 
         itemSettings = new SpeedDialActionItem.Builder(R.id.action_settings, R.drawable.round_settings_24)
-                .setFabBackgroundColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                 .setLabel("Settings")
+                .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                .setLabelColor(Color.WHITE)
                 .setLabelClickable(false)
                 .create();
 
 
         itemListen = new SpeedDialActionItem.Builder(R.id.action_listen, R.drawable.round_volume_up_24)
-                .setFabBackgroundColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                 .setLabelClickable(false)
+                .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                .setLabelColor(Color.WHITE)
                 .setLabel("Listen")
                 .create();
 
         itemStop = new SpeedDialActionItem.Builder(R.id.action_stop, R.drawable.round_stop_24)
-                .setFabBackgroundColor(Color.WHITE)
+                .setFabBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
                 .setLabelClickable(false)
+                .setLabelBackgroundColor(Color.parseColor(getString(R.string.colorPrimary)))
+                .setLabelColor(Color.WHITE)
                 .setLabel("Stop")
                 .create();
     }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,7 +41,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
     private Toolbar toolbar;
     private RoundedImageView imgLearn;
     private EditText edtLearn;
-    private LinearLayout linearLayout, linearLayout2;
+    private LinearLayout linearLayout, linearLayout2, linearLayout3;
     private Button btnShowMean;
     private TextView lblMeanTitle, lblMean, lblCorrect;
     private Vocabulary vocabulary;
@@ -64,6 +65,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         edtLearn = this.findViewById(R.id.edt_learn);
         linearLayout = this.findViewById(R.id.button_group_learn);
         linearLayout2 = this.findViewById(R.id.button_group_learn2);
+        linearLayout3 = this.findViewById(R.id.button_group_learn3);
         btnShowMean = this.findViewById(R.id.btn_show_mean);
         lblMeanTitle = this.findViewById(R.id.lbl_mean_title_learn);
         lblMean = this.findViewById(R.id.lbl_mean_learn);
@@ -75,6 +77,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
 
         toolbar.setTitle("Learn");
         toolbar.setNavigationIcon(R.drawable.round_clear_24);
+        toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
         assert getSupportActionBar() != null;
@@ -95,12 +98,20 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         Collections.shuffle(list2);
 
         int i = 1;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.setMarginStart(8);
+        params.setMarginEnd(8);
         for (String character : list2) {
             if (character.equals("")) {
 
             } else {
                 if (i <= 7) {
                     Button myButton = new Button(this);
+                    myButton.setLayoutParams(params);
+                    myButton.setBackgroundResource(R.drawable.state_button_learn);
                     myButton.setText(character);
                     myButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -125,8 +136,10 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(150, 200);
                     linearLayout.addView(myButton, lp);
                     i++;
-                } else {
+                } else if (i <= 14) {
                     Button myButton = new Button(this);
+                    myButton.setLayoutParams(params);
+                    myButton.setBackgroundResource(R.drawable.state_button_learn);
                     myButton.setText(character);
                     myButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -150,6 +163,35 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
 
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(150, 200);
                     linearLayout2.addView(myButton, lp);
+                    i++;
+                } else {
+                    Button myButton = new Button(this);
+                    myButton.setLayoutParams(params);
+                    myButton.setBackgroundResource(R.drawable.state_button_learn);
+                    myButton.setText(character);
+                    myButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String str = ((Button)view).getText().toString();
+                            if (str.equals(arr[position])) {
+                                position++;
+                                edtLearn.append(str);
+                                view.setEnabled(false);
+                                if (edtLearn.getText().toString().equals(vocabulary.getEn_us())) {
+                                    showMean();
+                                    lblCorrect.setText("Correct!");
+                                    toolbar.setTitle(vocabulary.getEn_us());
+                                    toolbar.setSubtitle(vocabulary.getEn_us_pr());
+                                    btnSound.setVisibility(View.VISIBLE);
+                                    onRadioClick();
+                                }
+                            }
+                        }
+                    });
+
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(150, 200);
+                    linearLayout3.addView(myButton, lp);
+                    i++;
                 }
             }
         }
