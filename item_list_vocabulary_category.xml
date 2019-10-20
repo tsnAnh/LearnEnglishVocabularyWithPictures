@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:weightSum="12">
+
+<com.makeramen.roundedimageview.RoundedImageView
+    android:id="@+id/item_img_vocabulary_cat"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="9"
+    android:elevation="6dp"
+    app:riv_corner_radius="20dp"
+    app:srcCompat="@drawable/round_insert_photo_24" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/item_lbl_vocabulary_cat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</LinearLayout>

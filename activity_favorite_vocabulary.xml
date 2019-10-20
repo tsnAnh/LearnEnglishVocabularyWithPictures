@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:clipToPadding="false"
+    tools:context=".view.FavoriteVocabularyActivity">
+
+    <GridView
+        android:id="@+id/grid_favorite"
+        style="@style/Background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:horizontalSpacing="16dp"
+        android:numColumns="2"
+        android:verticalSpacing="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_favorite">
+
+    </GridView>
+
+    <TextView
+        android:id="@+id/lbl_no_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="You have not added any favorite vocabulary yet!"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_favorite" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ActionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
