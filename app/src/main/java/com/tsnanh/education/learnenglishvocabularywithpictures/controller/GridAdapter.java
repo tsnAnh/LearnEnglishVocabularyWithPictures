@@ -67,7 +67,7 @@ public class GridAdapter extends BaseAdapter {
                          
         }
         Log.e("URL", Config.SERVER_IMAGE_CAT_FOLDER + categories.getIntroImage());
-        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 560));
+        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 800));
         return v;
     }
 }

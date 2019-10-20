@@ -185,8 +185,6 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
             if (requestCode == Config.VOCABULARY_REQUEST_CODE) {
                 int position = data.getIntExtra(Config.VOC_ID, arr.size());
                 gridView.setSelection(position);
-                arr.clear();
-                arr.addAll(data.<Vocabulary>getParcelableArrayListExtra(Config.VOCABULARY_CAT_KEY));
             }
         }
     }
@@ -202,6 +200,7 @@ public class VocabularyCategoryActivity extends AppCompatActivity implements Men
                 break;
             case R.id.action_all_voc:
                 Intent intent = new Intent(this, VocabularyCategoryActivity.class);
+                intent.putExtra(Config.VOCABULARY_ALL, 1);
                 startActivity(intent);
                 speedDialView.close(true);
                 break;

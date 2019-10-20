@@ -19,4 +19,5 @@ public final class Config {
     public static final int SEARCH_RESULT = 10;
     public static final int VOCABULARY_FAVORITE_REQUEST_CODE = 2;
     public static final String VOCABULARY_ALL = "VOCABULARY_ALL";
+    public static final int SPLASH_TIME_OUT = 3000;
 }

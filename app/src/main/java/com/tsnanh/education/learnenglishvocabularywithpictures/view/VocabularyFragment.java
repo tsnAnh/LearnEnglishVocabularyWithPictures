@@ -59,6 +59,7 @@ public class VocabularyFragment extends Fragment {
     private MediaPlayer mp;
     int duration;
     boolean isRepeat;
+    ImageButton imageButtonSound;
 
     private OnFragmentInteractionListener mListener;
 
@@ -111,11 +112,13 @@ public class VocabularyFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.fragment_img_vocabulary);
         final ImageView btnEdit = view.findViewById(R.id.btn_edit_note);
         Button btnLearn = view.findViewById(R.id.btn_learn);
-        ImageButton imageButton = view.findViewById(R.id.btn_sound);
+        imageButtonSound = view.findViewById(R.id.btn_sound);
+        TextView lblVietnamese = view.findViewById(R.id.lbl_vietnamese);
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        imageButtonSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                imageButtonSound.setEnabled(false);
                 onRadioClick();
             }
         });
@@ -130,11 +133,19 @@ public class VocabularyFragment extends Fragment {
         });
 
         lblVocabulary.setText(vocabulary.getEn_us().trim());
-        if (!vocabulary.getEn_us_pr().isEmpty()) {
+        if (!vocabulary.getEn_us_pr().isEmpty() || !vocabulary.getEn_us_pr().equals("")) {
             lblVocabulary.append(" " + "(" + vocabulary.getEn_us_type().trim() + ")");
+        } else {
+            lblVocabulary.append("");
         }
         lblVocabularyPr.setText(vocabulary.getEn_us_pr().trim());
         lblMeaning.setText(vocabulary.getEn_us_mean().trim());
+        if (vocabulary.getVi_vn() != null && !vocabulary.getVi_vn().isEmpty()) {
+            lblVietnamese.setText(vocabulary.getVi_vn().trim());
+
+        } else {
+            lblVietnamese.setText("unavailable");
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             lblExamples.setText(Html.fromHtml(vocabulary.getEn_us_ex(), Html.FROM_HTML_MODE_COMPACT));
         } else {
@@ -180,7 +191,7 @@ public class VocabularyFragment extends Fragment {
             }
         });
         edtNote.setText(vocabulary.getNote());
-        Glide.with(this).load(Config.SERVER_IMAGE_FOLDER + vocabulary.getImage()).placeholder(R.drawable.progress).into(imageView);
+        Glide.with(this).load(Config.SERVER_IMAGE_FOLDER + vocabulary.getImage()).centerCrop().placeholder(R.drawable.progress).into(imageView);
 
         return view;
     }
@@ -213,6 +224,7 @@ public class VocabularyFragment extends Fragment {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             mp.start();
+            imageButtonSound.setEnabled(true);
             return false;
         }
     });
@@ -225,7 +237,7 @@ public class VocabularyFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

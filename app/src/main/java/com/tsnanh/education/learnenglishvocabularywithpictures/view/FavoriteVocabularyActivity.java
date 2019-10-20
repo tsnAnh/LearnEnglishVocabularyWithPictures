@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tsnanh.education.learnenglishvocabularywithpictures.R;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.App;
@@ -34,6 +35,24 @@ public class FavoriteVocabularyActivity extends AppCompatActivity implements Ada
     private FavoriteAdapter favoriteAdapter;
     private DaoSession daoSession = App.getDaoSession();
     private ArrayList<Vocabulary> arrFavorite = new ArrayList<>();
+    private TextView lblNoFav;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        arrFavorite.clear();
+        arrFavorite.addAll(daoSession.getVocabularyDao().queryBuilder().where(VocabularyDao.Properties.Liked.eq(1)).list());
+
+        if (arrFavorite.size() <= 0) {
+            gridView.setVisibility(View.GONE);
+            lblNoFav.setVisibility(View.VISIBLE);
+        } else {
+            gridView.setVisibility(View.VISIBLE);
+            lblNoFav.setVisibility(View.GONE);
+            favoriteAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -44,6 +63,7 @@ public class FavoriteVocabularyActivity extends AppCompatActivity implements Ada
 
         toolbar = this.findViewById(R.id.toolbar_favorite);
         gridView = this.findViewById(R.id.grid_favorite);
+        lblNoFav = this.findViewById(R.id.lbl_no_favorite);
 
         gridView.setOnItemClickListener(this);
         toolbar.setTitle("Favorite");
@@ -53,8 +73,16 @@ public class FavoriteVocabularyActivity extends AppCompatActivity implements Ada
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arrFavorite.addAll(daoSession.getVocabularyDao().queryBuilder().where(VocabularyDao.Properties.Liked.eq(1)).list());
-        favoriteAdapter = new FavoriteAdapter(this, arrFavorite);
-        gridView.setAdapter(favoriteAdapter);
+
+        if (arrFavorite.size() <= 0) {
+            gridView.setVisibility(View.GONE);
+            lblNoFav.setVisibility(View.VISIBLE);
+        } else {
+            gridView.setVisibility(View.VISIBLE);
+            lblNoFav.setVisibility(View.GONE);
+            favoriteAdapter = new FavoriteAdapter(this, arrFavorite);
+            gridView.setAdapter(favoriteAdapter);
+        }
     }
 
     @Override

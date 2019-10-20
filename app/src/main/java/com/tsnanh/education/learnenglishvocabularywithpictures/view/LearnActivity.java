@@ -104,6 +104,8 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         );
         params.setMarginStart(8);
         params.setMarginEnd(8);
+        params.leftMargin = 8;
+        params.rightMargin = 8;
         for (String character : list2) {
             if (character.equals("")) {
 
@@ -127,6 +129,9 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
                                     toolbar.setTitle(vocabulary.getEn_us());
                                     toolbar.setSubtitle(vocabulary.getEn_us_pr());
                                     btnSound.setVisibility(View.VISIBLE);
+                                    linearLayout.setVisibility(View.GONE);
+                                    linearLayout2.setVisibility(View.GONE);
+                                    linearLayout3.setVisibility(View.GONE);
                                     onRadioClick();
                                 }
                             }
@@ -155,6 +160,9 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
                                     toolbar.setTitle(vocabulary.getEn_us());
                                     toolbar.setSubtitle(vocabulary.getEn_us_pr());
                                     btnSound.setVisibility(View.VISIBLE);
+                                    linearLayout.setVisibility(View.GONE);
+                                    linearLayout2.setVisibility(View.GONE);
+                                    linearLayout3.setVisibility(View.GONE);
                                     onRadioClick();
                                 }
                             }
@@ -183,6 +191,9 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
                                     toolbar.setTitle(vocabulary.getEn_us());
                                     toolbar.setSubtitle(vocabulary.getEn_us_pr());
                                     btnSound.setVisibility(View.VISIBLE);
+                                    linearLayout.setVisibility(View.GONE);
+                                    linearLayout2.setVisibility(View.GONE);
+                                    linearLayout3.setVisibility(View.GONE);
                                     onRadioClick();
                                 }
                             }

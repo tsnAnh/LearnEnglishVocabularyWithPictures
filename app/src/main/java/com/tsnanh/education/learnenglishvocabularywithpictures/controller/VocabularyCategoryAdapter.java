@@ -64,7 +64,7 @@ public class VocabularyCategoryAdapter extends BaseAdapter {
 
         holder.textView.setText(vocabulary.getEn_us());
         Glide.with(context).load(Config.SERVER_IMAGE_FOLDER + vocabulary.getImage()).centerCrop().placeholder(R.drawable.loading_spinner).into(holder.imageView);
-        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 560));
+        v.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 800));
         return v;
     }
 }

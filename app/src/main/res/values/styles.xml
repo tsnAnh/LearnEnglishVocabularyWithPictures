@@ -3,20 +3,21 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#1565C0</item>
+        <item name="colorPrimary">#145E2E</item>
         <item name="colorPrimaryDark"></item>
         <item name="colorAccent">#FFF</item>
         <item name="android:textColorPrimary">#fff</item>
-        <item name="android:windowActionBar">false</item>
         <item name="android:searchIcon">@drawable/round_search_24</item>
         <item name="colorControlNormal">#FFF</item>
         <!--<item name="android:textColorPrimary">#000</item>-->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 
     <style name="ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">#FFF</item>
         <!-- Change item background hihi dmm -->
-        <item name="android:itemBackground">#1565C0</item>
+        <item name="android:itemBackground">#145E2E</item>
 
         <!-- Chang color of item text hehe dmm -->
         <item name="android:textColor">#FFF</item>
@@ -26,9 +27,33 @@
         <item name="android:textColorHint">@color/colorGray</item>
         <item name="android:homeAsUpIndicator">@drawable/round_arrow_back_24</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-        <item name="android:background">#1565C0</item>
+        <item name="android:background">#145E2E</item>
     </style>
     <style name="Background">
-        <item name="android:background">#1E88E5</item>
+        <item name="android:background">#333333</item>
+    </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">#145E2E</item>
+        <item name="android:background">#333333</item>
+        <item name="android:textColorPrimary">#FFF</item>
+        <item name="android:textColorSecondary">#FFF</item>
+        <item name="textColorAlertDialogListItem">#fff</item>
+    </style>
+
+    <style name="mytoast">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#fff</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#145E2E</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stLength">LONG</item> LONG or SHORT
+        <item name="stRadius">16dp</item>
+    </style>
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
 </resources>

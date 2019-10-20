@@ -27,7 +27,7 @@
             android:elevation="6dp"
             android:foreground="?attr/selectableItemBackground"
             android:text="Learn This Vocabulary"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,7 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:textColorHint="#C9C9C9"
+            android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -53,7 +54,7 @@
         <ImageView
             android:id="@+id/btn_edit_note"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/textView8"
@@ -89,6 +90,19 @@
             app:layout_constraintTop_toBottomOf="@+id/fragment_lbl_vocabulary" />
 
         <TextView
+            android:id="@+id/Vietnamese_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_learn"
+            android:text="Vietnamese: "/>
+
+        <TextView
             android:id="@+id/meaning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +113,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_learn" />
+            app:layout_constraintTop_toBottomOf="@+id/lbl_vietnamese" />
 
         <TextView
             android:id="@+id/fragment_lbl_meaning"
@@ -170,13 +184,25 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="#00FFFFFF"
+            android:background="@drawable/function_button_voc"
+            android:elevation="6dp"
             app:layout_constraintBottom_toTopOf="@+id/fragment_lbl_vocabulary_pr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/fragment_lbl_vocabulary"
             app:layout_constraintTop_toTopOf="@+id/fragment_lbl_vocabulary"
             app:srcCompat="@drawable/round_volume_up_24" />
+
+        <TextView
+            android:id="@+id/lbl_vietnamese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Vietnamese_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

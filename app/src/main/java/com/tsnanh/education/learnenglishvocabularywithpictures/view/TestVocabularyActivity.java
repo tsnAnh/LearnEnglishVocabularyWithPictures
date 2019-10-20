@@ -12,10 +12,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.tsnanh.education.learnenglishvocabularywithpictures.R;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Config;
 import com.tsnanh.education.learnenglishvocabularywithpictures.model.Vocabulary;
@@ -38,7 +42,7 @@ public class TestVocabularyActivity extends AppCompatActivity {
     private ImageView imgVocTest;
     private TextView lblQuestionCount, lblAnswer, lblMeanTitle, lblMean;
     private FloatingActionButton fabNextTest;
-    private RadioGroup radioGroup;
+    private LinearLayout layoutButtonGroup;
     private ArrayList<Vocabulary> arr;
     int i = 0, answered = 0;
     private MediaPlayer mp;
@@ -72,12 +76,13 @@ public class TestVocabularyActivity extends AppCompatActivity {
         fabNextTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                radioGroup.removeAllViews();
+                layoutButtonGroup.removeAllViews();
                 if (i < arr.size() - 1) {
+                    fabNextTest.setEnabled(false);
                     fabNextTest.hide();
                     loadTest(++i);
                 } else {
-                    Toast.makeText(TestVocabularyActivity.this, "Your Score: " + answered + "/" + arr.size(), Toast.LENGTH_LONG).show();
+                    StyleableToast.makeText(TestVocabularyActivity.this, "Your Score: " + answered + "/" + arr.size(), Toast.LENGTH_LONG, R.style.mytoast).show();
                     TestVocabularyActivity.this.finish();
                 }
             }
@@ -121,34 +126,68 @@ public class TestVocabularyActivity extends AppCompatActivity {
             count++;
         }
         Collections.shuffle(temp);
-        Toast.makeText(this, String.valueOf(temp.size()), Toast.LENGTH_SHORT).show();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = 16;
+        params.bottomMargin = 16;
         for (int j = 0; j < temp.size(); j++) {
             final int position = j;
-            RadioButton radioButton = new RadioButton(this);
-            radioButton.setText(temp.get(j).getEn_us());
-            radioButton.setTextColor(Color.WHITE);
-            radioButton.setTypeface(null, Typeface.BOLD);
-            radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            Button button = new Button(this);
+            button.setText(temp.get(j).getEn_us());
+            button.setTextColor(Color.BLACK);
+            button.setTypeface(null, Typeface.BOLD);
+            button.setLayoutParams(params);
+            button.setBackgroundResource(R.drawable.button_test_normal);
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    String s = compoundButton.getText().toString();
+                public void onClick(View view) {
+                    Button button1 = (Button) view;
+                    String s = button1.getText().toString();
                     String ss = vocabulary.getEn_us();
                     if (s.equals(ss)) {
                         lblMean.setVisibility(View.VISIBLE);
                         lblMeanTitle.setVisibility(View.VISIBLE);
-                        compoundButton.setTextColor(Color.GREEN);
-                        disableAllRadio(position);
+                        button1.setTextColor(Color.WHITE);
+                        button1.setBackgroundResource(R.drawable.button_correct_answer);
+                        disableAllButton(position);
+                        fabNextTest.setEnabled(true);
                         fabNextTest.show();
                         lblAnswer.setText("Your result is " + ++answered + "/" + arr.size());
                         onRadioClick(vocabulary);
+                        button1.setEnabled(false);
                     } else {
-                        disableAllRadio();
-                        compoundButton.setTextColor(Color.RED);
+                        disableAllButton();
+                        button1.setBackgroundResource(R.drawable.button_wrong_answer);
+                        button1.setTextColor(Color.WHITE);
+                        fabNextTest.setEnabled(true);
                         fabNextTest.show();
                     }
                 }
             });
-            radioGroup.addView(radioButton);
+//            RadioButton radioButton = new RadioButton(this);
+//            radioButton.setText(temp.get(j).getEn_us());
+//            radioButton.setTextColor(Color.WHITE);
+//            radioButton.setTypeface(null, Typeface.BOLD);
+//            radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                    String s = compoundButton.getText().toString();
+//                    String ss = vocabulary.getEn_us();
+//                    if (s.equals(ss)) {
+//                        lblMean.setVisibility(View.VISIBLE);
+//                        lblMeanTitle.setVisibility(View.VISIBLE);
+//                        compoundButton.setTextColor(Color.GREEN);
+//                        disableAllRadio(position);
+//                        fabNextTest.show();
+//                        lblAnswer.setText("Your result is " + ++answered + "/" + arr.size());
+//                        onRadioClick(vocabulary);
+//                    } else {
+//                        disableAllRadio();
+//                        compoundButton.setTextColor(Color.RED);
+//                        fabNextTest.show();
+//                    }
+//                }
+//            });
+            layoutButtonGroup.addView(button);
         }
     }
 
@@ -190,17 +229,17 @@ public class TestVocabularyActivity extends AppCompatActivity {
         }
     });
 
-    private void disableAllRadio(int position) {
-        for (int i = 0; i < radioGroup.getChildCount(); i++) {
+    private void disableAllButton(int position) {
+        for (int i = 0; i < layoutButtonGroup.getChildCount(); i++) {
             if (position != i) {
-                radioGroup.getChildAt(i).setEnabled(false);
+                layoutButtonGroup.getChildAt(i).setEnabled(false);
             }
         }
     }
 
-    private void disableAllRadio() {
-        for (int i = 0; i < radioGroup.getChildCount(); i++) {
-            radioGroup.getChildAt(i).setEnabled(false);
+    private void disableAllButton() {
+        for (int i = 0; i < layoutButtonGroup.getChildCount(); i++) {
+            layoutButtonGroup.getChildAt(i).setEnabled(false);
         }
     }
 
@@ -212,6 +251,6 @@ public class TestVocabularyActivity extends AppCompatActivity {
         lblMeanTitle = this.findViewById(R.id.lbl_mean_title_test);
         lblMean = this.findViewById(R.id.lbl_mean_test);
         fabNextTest = this.findViewById(R.id.fab_next_test);
-        radioGroup = this.findViewById(R.id.radio_answer_group);
+        layoutButtonGroup = this.findViewById(R.id.layout_answer_group);
     }
 }

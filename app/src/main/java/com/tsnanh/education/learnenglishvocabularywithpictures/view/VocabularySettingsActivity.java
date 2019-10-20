@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.tsnanh.education.learnenglishvocabularywithpictures.R;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Config;
 
@@ -69,10 +70,10 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
             isRepeat = sharedPreferences.getBoolean(Config.SHARE_PREFERENCES_REPEAT, false);
             aSwitchRepeat.setChecked(isRepeat);
         }
+
         seekBarDuration.setProgress(duration);
         lblDuration.setText(String.valueOf(duration));
         toolbar.setTitle("Vocabulary Play Settings");
-        toolbar.setTitleTextColor(Color.BLACK);
         this.setSupportActionBar(toolbar);
 
         assert this.getSupportActionBar() != null;
@@ -94,7 +95,7 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
 
     private void exitSettings() {
         if (isChanged) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
             builder.setMessage("Do you want to save your changes?")
                     .setTitle("Save?")
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -109,7 +110,7 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
                             editor.putBoolean(Config.SHARE_PREFERENCES_REPEAT, isRepeat);
                             editor.putInt(Config.SHARE_PREFERENCES_DURATION, duration);
                             editor.apply();
-                            Toast.makeText(VocabularySettingsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(VocabularySettingsActivity.this, "Saved!", Toast.LENGTH_SHORT, R.style.mytoast).show();
                             setResult(Activity.RESULT_OK);
                             finish();
                         }
@@ -138,17 +139,22 @@ public class VocabularySettingsActivity extends AppCompatActivity implements Vie
             editor.putInt(Config.SHARE_PREFERENCES_DURATION, duration);
             editor.apply();
             setResult(RESULT_OK);
-            Toast.makeText(VocabularySettingsActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(VocabularySettingsActivity.this, "Saved!", Toast.LENGTH_SHORT, R.style.mytoast).show();
             finish();
         }
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        i++;
-        duration = i;
+        int min = 1;
+        if (i < min) {
+            lblDuration.setText("1");
+            duration = 1;
+        } else {
+            duration = i;
+            lblDuration.setText(String.valueOf(i));
+        }
         isChanged = true;
-        lblDuration.setText(String.valueOf(i));
     }
 
     @Override

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">LearnEnglishVocabularyWithPictures</string>
+    <string name="app_name">English Vocabulary With Pictures - Easy To Learn</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="colorPrimary">#1565C0</string>
+    <string name="colorPrimary">#145E2E</string>
 </resources>

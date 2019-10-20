@@ -18,14 +18,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        style="@style/Background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:baselineAligned="false"
         android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_matching_game"
-        android:baselineAligned="false">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_matching_game">
 
         <LinearLayout
             android:id="@+id/layout_game_text"

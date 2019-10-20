@@ -27,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.tsnanh.education.learnenglishvocabularywithpictures.R;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.App;
 import com.tsnanh.education.learnenglishvocabularywithpictures.controller.Config;
@@ -295,14 +296,14 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
                     daoSession.getVocabularyDao().refresh(vocabulary);
                     arrayList.set(vocabularyId, vocabulary);
                     itemFavorite.setIcon(R.drawable.round_favorite_24);
-                    Toast.makeText(VocabularyActivity.this, "Added to Favorites!", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(VocabularyActivity.this, "Added to Favorites!", Toast.LENGTH_SHORT, R.style.mytoast).show();
                 } else {
                     vocabulary.setLiked(0);
                     daoSession.getVocabularyDao().getDatabase().execSQL("update vocabularies set liked = 0 where id = "+vocabulary.getId()+"");
                     daoSession.getVocabularyDao().refresh(vocabulary);
                     arrayList.set(vocabularyId, vocabulary);
                     itemFavorite.setIcon(R.drawable.round_favorite_border_24);
-                    Toast.makeText(VocabularyActivity.this, "Removed from Favorite!", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(VocabularyActivity.this, "Removed from Favorite!", Toast.LENGTH_SHORT, R.style.mytoast).show();
                 }
                 return true;
             }
@@ -341,7 +342,7 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         // nothing to do
     }
 
-    private void startPagerAutoSwipe() {
+    public void startPagerAutoSwipe() {
         speedDialView.close(true);
         speedDialView.replaceActionItem(itemPlay, itemStop);
         tabLayout.setKeepScreenOn(true);
@@ -377,7 +378,7 @@ public class VocabularyActivity extends AppCompatActivity implements VocabularyF
         }, 0, duration*1000);
     }
 
-    private void stopPagerAutoSwipe() {
+    public void stopPagerAutoSwipe() {
         swipeTimer.cancel();
         isStop = true;
         speedDialView.replaceActionItem(itemStop, itemPlay);

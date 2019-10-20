@@ -25,8 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#1565C0"
+        android:backgroundTint="#145E2E"
         android:clickable="true"
+        android:elevation="6dp"
+        android:focusable="true"
         app:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,18 +50,32 @@
             android:id="@+id/layout_test"
             style="@style/Background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".view.TestVocabularyActivity">
 
-            <RadioGroup
-                android:id="@+id/radio_answer_group"
+            <LinearLayout
+                android:id="@+id/layout_answer_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_question_count" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_correct_answer" />
+
+            <TextView
+                android:id="@+id/lbl_correct_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Choose correct answer: "
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lbl_question_count" />
 
             <TextView
                 android:id="@+id/lbl_question_count"
@@ -102,7 +118,7 @@
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radio_answer_group" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_answer_group" />
 
             <TextView
                 android:id="@+id/lbl_mean_test"
