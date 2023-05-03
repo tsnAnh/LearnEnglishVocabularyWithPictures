@@ -34,9 +34,9 @@
         android:clipToPadding="false"
         android:elevation="4dp"
         android:visibility="visible"
-        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorColor="#000"
         app:tabMode="scrollable"
-        app:tabTextColor="@android:color/white" />
+        app:tabTextColor="#000" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_vocabulary"
